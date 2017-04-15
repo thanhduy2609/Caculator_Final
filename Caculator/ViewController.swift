@@ -24,13 +24,40 @@ class ViewController: UIViewController {
             performingMath = false;
         }
         else{
-            lblText.text = 	lblText.text! + String(sender.tag-1);
-            numberOnScreen = Double(lblText.text!)!	;
+            if sender.tag != 0{
+                lblText.text = 	lblText.text! + String(sender.tag-1);
+                numberOnScreen = Double(lblText.text!)!	;
 
+            }
+            else if sender.tag == 0{
+                if checkDot(character: lblText.text!){
+                    lblText.text = lblText.text! + "."
+                    numberOnScreen = Double(lblText.text!)!
+                }
+            }
         }
         
     }
     
+    func checkDot(character: String) -> Bool {
+       
+        if character != ""{
+              //let charAtIndex = character[character.index(character.startIndex, offsetBy: 0)]
+            var count: Int = 0;
+            for charac in character.characters{
+                if (charac == "."){
+                    count+=1;
+                }
+            }
+            if (count > 0){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        return false;
+    }
     @IBAction func buttons(_ sender: UIButton) {
         	if 	lblText.text != "" && sender.tag != 11 && sender.tag != 12 && sender.tag != 13 && sender.tag != 18{
                 previousNumber = Double(lblText.text!)!
@@ -53,15 +80,19 @@ class ViewController: UIViewController {
         else if sender.tag == 18{
                 if operation == 14{
                 lblText.text = String(previousNumber / numberOnScreen)
+                    numberOnScreen = previousNumber/numberOnScreen
                 }
                 if operation == 15{
                     lblText.text = String(previousNumber * numberOnScreen)
+                     numberOnScreen = previousNumber * numberOnScreen
                 }
                 if (operation == 16){
                     lblText.text = String(previousNumber - numberOnScreen)
+                     numberOnScreen = previousNumber - numberOnScreen
                 }
                 if (operation == 17){
                     lblText.text = String(previousNumber + numberOnScreen)
+                     numberOnScreen = previousNumber + numberOnScreen
                 }
         }
         else if sender.tag == 11{
@@ -69,6 +100,12 @@ class ViewController: UIViewController {
                 previousNumber = 0
                 numberOnScreen = 0
                 operation = 0
+        }
+        else if sender.tag == 12{
+                if lblText.text! != "" || lblText.text! != "0"{
+                    numberOnScreen *= -1
+                    lblText.text = String(numberOnScreen)
+                }
         }
     }
     override func viewDidLoad() {
