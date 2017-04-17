@@ -39,6 +39,7 @@ class ViewController: UIViewController {
         
     }
     
+    //hàm kiểm tra, chỉ cho phép 1 dấu . dc phép xuất hiện
     func checkDot(character: String) -> Bool {
        
         if character != ""{
@@ -59,6 +60,7 @@ class ViewController: UIViewController {
         return false;
     }
     @IBAction func buttons(_ sender: UIButton) {
+        //kiểm tra xem người dùng có click những nút khác ngoài những nút tính toán hay không
         	if 	lblText.text != "" && sender.tag != 11 && sender.tag != 12 && sender.tag != 13 && sender.tag != 18{
                 previousNumber = Double(lblText.text!)!
                 if sender.tag == 14{
@@ -77,6 +79,7 @@ class ViewController: UIViewController {
                 operation = sender.tag
                 performingMath = true;
         }
+                //nếu người dùng nhấn dấu =
         else if sender.tag == 18{
                 if operation == 14{
                 lblText.text = String(previousNumber / numberOnScreen)
@@ -95,12 +98,14 @@ class ViewController: UIViewController {
                      numberOnScreen = previousNumber + numberOnScreen
                 }
         }
+                //người dùng nhấn nút AC
         else if sender.tag == 11{
                 lblText.text = ""
                 previousNumber = 0
                 numberOnScreen = 0
                 operation = 0
         }
+                //người dúng nhấn dấu "+-"
         else if sender.tag == 12{
                 if lblText.text! != "" || lblText.text! != "0"{
                     numberOnScreen *= -1
